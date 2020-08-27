@@ -88,8 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
         SettingsUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     String myProfileImage = snapshot.child("profileimage").getValue().toString();
                     String myUserName = snapshot.child("username").getValue().toString();
                     String myCountry = snapshot.child("country").getValue().toString();
@@ -120,7 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
-                        .setAspectRatio(1,1)
+                        .setAspectRatio(1, 1)
                         .start(SettingsActivity.this);
             }
         });
@@ -136,9 +135,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 loadingBar.setTitle("Updating Profile Image");
                 loadingBar.setMessage("Please Wait...");
                 loadingBar.show();
@@ -157,12 +156,11 @@ public class SettingsActivity extends AppCompatActivity {
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful()) {
+                                                if (task.isSuccessful()) {
                                                     userProfImage.setImageURI(resultUri);
                                                     Toast.makeText(SettingsActivity.this, "Profile Updated ", Toast.LENGTH_LONG).show();
                                                     loadingBar.dismiss();
-                                                }
-                                                else {
+                                                } else {
                                                     //if URL is not saved in database
                                                     String message = task.getException().getMessage();
                                                     Toast.makeText(SettingsActivity.this, "Error " + message, Toast.LENGTH_SHORT).show();
@@ -178,12 +176,11 @@ public class SettingsActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SettingsActivity.this, "Error "+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingsActivity.this, "Error " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         loadingBar.dismiss();
                     }
                 });
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Erorr Occourd: Please Choose Image Again ", Toast.LENGTH_SHORT).show();
                 loadingBar.dismiss();
             }
@@ -199,42 +196,26 @@ public class SettingsActivity extends AppCompatActivity {
         String vRelation = userRelation.getEditText().getText().toString();
         String vDOB = userDOB.getEditText().getText().toString();
 
-        if(TextUtils.isEmpty(vUserName))
-        {
+        if (TextUtils.isEmpty(vUserName)) {
             Toast.makeText(this, "Please Enter The UserName", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(vProfileName))
-        {
+        } else if (TextUtils.isEmpty(vProfileName)) {
             Toast.makeText(this, "Please Enter The Full Name", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(vContact))
-        {
+        } else if (TextUtils.isEmpty(vContact)) {
             Toast.makeText(this, "Please Enter The Contact Number", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(vStatus))
-        {
+        } else if (TextUtils.isEmpty(vStatus)) {
             Toast.makeText(this, "Please Enter The Bio", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(vDOB))
-        {
+        } else if (TextUtils.isEmpty(vDOB)) {
             Toast.makeText(this, "Please Enter The Date of Birth", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(vCountry))
-        {
+        } else if (TextUtils.isEmpty(vCountry)) {
             Toast.makeText(this, "Please Enter The Country", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(vRelation))
-        {
+        } else if (TextUtils.isEmpty(vRelation)) {
             Toast.makeText(this, "Please Enter The Relationship Status", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             UpdateAccountInfo(vUserName, vProfileName, vCountry, vDOB, vContact, vStatus, vRelation);
         }
     }
 
-    private void UpdateAccountInfo(String vUserName, String vProfileName, String vCountry, String vDOB, String vContact, String vStatus, String vRelation)
-    {
+    private void UpdateAccountInfo(String vUserName, String vProfileName, String vCountry, String vDOB, String vContact, String vStatus, String vRelation) {
         HashMap userMap = new HashMap();
         userMap.put("username", vUserName);
         userMap.put("fullname", vProfileName);
@@ -246,20 +227,16 @@ public class SettingsActivity extends AppCompatActivity {
         SettingsUserRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
-                if(task.isSuccessful())
-                {
-                    SendUserToMainActivity();
+                if (task.isSuccessful()) {
                     Toast.makeText(SettingsActivity.this, "Settings Updated Successfully", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     String message = task.getException().getMessage();
-                    Toast.makeText(SettingsActivity.this, "Error "+message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, "Error " + message, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
+
     private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

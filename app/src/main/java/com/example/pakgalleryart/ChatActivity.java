@@ -19,6 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.pakgalleryart.notifications.APIService;
+import com.example.pakgalleryart.notifications.Client;
+import com.example.pakgalleryart.notifications.Data;
+import com.example.pakgalleryart.notifications.Response;
+import com.example.pakgalleryart.notifications.Sender;
+import com.example.pakgalleryart.notifications.Token;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +34,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +46,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class ChatActivity extends AppCompatActivity {
@@ -55,6 +65,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private DatabaseReference RootRef;
     private FirebaseAuth mAuth;
+
+    private APIService apiService;
+    private Boolean notify = false;
 
 
     @Override
@@ -92,16 +105,24 @@ public class ChatActivity extends AppCompatActivity {
         UserMessageList.setHasFixedSize(true);
         UserMessageList.setLayoutManager(linearLayoutManager);
         UserMessageList.setAdapter(messageAdapter);
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         DisplayReceiverInfo();
         FetchMessages();
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
                 SendMessageToUser();
                 UserMessageInput.setText(null);
             }
         });
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+    }
+    public void updateToken(String token) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mToken = new Token(token);
+        ref.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(mToken);
     }
 
     private void FetchMessages() {
@@ -173,11 +194,58 @@ public class ChatActivity extends AppCompatActivity {
                     if (!task.isSuccessful()) {
                         Toast.makeText(ChatActivity.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
-                        UserMessageInput.setText(null);
+                        DatabaseReference databaseReference = RootRef.child("Users").child(messageSenderId);
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                //ModelUser user = snapshot.getValue(ModelUser.class);
+                                String name = snapshot.child("fullname").getValue().toString();
+                                if(notify) {
+                                    sendNotification(messageReceiverId, name, messageText);
+                                }
+                                notify = false;
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
             });
         }
+    }
+    private void sendNotification(final String messageReceiverId, final String fullname, final String message) {
+        DatabaseReference allTokensRef = FirebaseDatabase.getInstance().getReference().child("Tokens");
+        Query query = allTokensRef.orderByKey().equalTo(messageReceiverId);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(messageSenderId, fullname+":  "+message,"New Message", messageReceiverId, R.mipmap.app_logo);
+                    Sender sender = new Sender(data, token.getToken());
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>() {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                    Toast.makeText(ChatActivity.this, ""+response.message(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void DisplayReceiverInfo() {
