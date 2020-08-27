@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:background="@drawable/post_background"
+    android:padding="5dp">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/all_users_profile_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/profile"
+        android:layout_marginLeft="10dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/grayBackground"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+        <TextView
+            android:id="@+id/all_users_profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+            android:textAlignment="textStart"
+            android:textColor="@color/ColorBlack"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/all_users_profile_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textAlignment="textStart"
+            android:textColor="@color/ColorBlack"
+            android:textSize="14sp"/>
+    </LinearLayout>
+</LinearLayout>

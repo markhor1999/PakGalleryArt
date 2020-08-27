@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F05B2F</color>
+    <color name="colorPrimaryDark">#c73004</color>
+    <color name="colorAccent">#E9EBEE</color>
+    <color name="colorProfileBack">#3B4041</color>
+    <color name="colorBackground">#dfe4ed</color>
+    <color name="ColorSender">#A0179E</color>
+    <color name="ColorBackReceiver">#ff5300</color>
+    <color name="ColorBackSender">#45145a</color>
+    <color name="ColorBlack">#000000</color>
+
+    <color name="colorSplashText">#F0F0F0</color>
+    <color name="colorProgressBar">#FFCE511C</color>
+    <color name="colorTextView">#83898E</color>
+    <color name="otherText">#ff9933</color>
+    <color name="white">#FFFFFF</color>
+
+
+    <color name="gradEnd">#67EFC8</color>
+    <color name="gradStart">#63C9FF</color>
+    <color name="followerBg">#65DCE5</color>
+    <color name="followingBg">#49BEFF</color>
+    <color name="solidCircle">#80FFFFFF</color>
+    <color name="circleBorder">#50FFFFFF</color>
+    <color name="grayBackground">#ebecf0</color>
+
+
+</resources>

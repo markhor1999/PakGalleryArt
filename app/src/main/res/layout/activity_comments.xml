@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dfe4ed"
+    tools:context=".CommentsActivity">
+
+    <include
+        android:id="@+id/comments_toolbar"
+        layout="@layout/app_bar_layout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comments_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/comment_linear"
+        android:layout_below="@+id/comments_toolbar"
+        android:layout_marginBottom="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/comment_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/comments_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@drawable/inputs"
+            android:ems="10"
+            android:hint="Write Your Comment..."
+            android:inputType="textMultiLine"
+            android:padding="13dp"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/comments_post_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:background="@android:color/transparent"
+            android:src="@drawable/send_comment2" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PakArt</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="forget_password">Forgot Password</string>
+    <string name="sign_up">"Signup "</string>
+
+</resources>

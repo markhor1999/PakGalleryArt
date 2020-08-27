@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "539431364618",
+    "firebase_url": "https://pakgalleryart.firebaseio.com",
+    "project_id": "pakgalleryart",
+    "storage_bucket": "pakgalleryart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539431364618:android:52d578798d37a4f733d7f3",
+        "android_client_info": {
+          "package_name": "com.example.pakgalleryart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539431364618-g7ghsbl22tfksder0uho68h97n767j85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2t8WIFDapWfa1XTlpLa2s2uaqbz5LXmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539431364618-g7ghsbl22tfksder0uho68h97n767j85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
