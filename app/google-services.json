@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "539431364618",
-    "firebase_url": "https://pakgalleryart.firebaseio.com",
-    "project_id": "pakgalleryart",
-    "storage_bucket": "pakgalleryart.appspot.com"
+    "project_number": "584492627635",
+    "firebase_url": "https://pak-art-gallery-default-rtdb.firebaseio.com",
+    "project_id": "pak-art-gallery",
+    "storage_bucket": "pak-art-gallery.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:539431364618:android:52d578798d37a4f733d7f3",
+        "mobilesdk_app_id": "1:584492627635:android:b3f0df089e306313fc62c6",
         "android_client_info": {
           "package_name": "com.example.pakgalleryart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "539431364618-g7ghsbl22tfksder0uho68h97n767j85.apps.googleusercontent.com",
+          "client_id": "584492627635-hpbunt1us1tve8q900ej0qtahrlv67hr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA2t8WIFDapWfa1XTlpLa2s2uaqbz5LXmk"
+          "current_key": "AIzaSyCF28H_5_ll5EnQy6_EaqCW5L5An1CFQpw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "539431364618-g7ghsbl22tfksder0uho68h97n767j85.apps.googleusercontent.com",
+              "client_id": "584492627635-hpbunt1us1tve8q900ej0qtahrlv67hr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
